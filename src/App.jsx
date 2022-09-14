@@ -1,32 +1,36 @@
 import {useState} from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [valueBool, setValueBool] = useState(0)
+  const [input, setInput] = useState("");
+  const onHandleChangeState = e => {
+    let value = e.target.value.replace(" ","")
+    value = value.replace(/([0-9])/g,"")
+    setInput(value)
+  }
+  const onHandleKeyUp = e =>{
+    if(e.key === "Enter"){
+      console.log("Call API");
+    }
+  }
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>Componentito</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <input type="hidden"
+          value={valueBool}
+          readOnly
+        />
+        <br />
+        <input type="text"
+          maxLength={64}
+          value={input}
+          onChange={onHandleChangeState}
+          onKeyUp={onHandleKeyUp}
+        />
+        <button onClick={() => console.log((count) => count + 1)}>Enviar</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
